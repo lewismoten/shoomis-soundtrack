@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#12120f" />
+    <title>Shoomis — Soundtrack</title>
+    <meta name="description" content="The official soundtrack for Shoomis." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <p class="eyebrow">Original soundtrack</p>
+        <h1>Shoomis</h1>
+        <p class="intro">A small place for the music.</p>
+      </header>
+
+      <section class="player" aria-labelledby="now-playing">
+        <div class="art" aria-hidden="true"><span>♪</span></div>
+        <div class="now-playing">
+          <p class="eyebrow">Now playing</p>
+          <h2 id="now-playing">Choose a track</h2>
+          <p id="artist">Shoomis soundtrack</p>
+        </div>
+        <button id="play-toggle" class="play-button" type="button" aria-label="Play selected track" disabled>▶</button>
+      </section>
+
+      <div class="progress-row" aria-label="Playback progress">
+        <time id="elapsed">0:00</time>
+        <input id="progress" type="range" min="0" max="100" value="0" aria-label="Seek" disabled />
+        <time id="duration">0:00</time>
+      </div>
+
+      <section class="track-section" aria-labelledby="track-list-heading">
+        <div class="section-heading">
+          <h2 id="track-list-heading">Track list</h2>
+          <span id="track-count"></span>
+        </div>
+        <ol id="track-list" class="track-list"></ol>
+        <p id="empty-state" class="empty-state" hidden>No tracks yet. Add them to <code>tracks.json</code> to get started.</p>
+      </section>
+    </main>
+
+    <audio id="audio" preload="metadata"></audio>
+    <script src="app.js"></script>
+  </body>
+</html>
