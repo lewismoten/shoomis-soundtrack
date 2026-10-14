@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#12120f" />
+    <title>Shoomis MIDI Player</title>
+    <meta name="description" content="A small standalone player for Shoomis MIDI tracks." />
+  </head>
+  <body>
+    <main class="standalone-page">
+      <a class="standalone-back" href="./">← Full soundtrack inspector</a>
+      <section class="standalone-card" aria-labelledby="player-title">
+        <p class="standalone-eyebrow">Shoomis soundbank</p>
+        <h1 id="player-title">MIDI Player</h1>
+        <div id="standalone-player"></div>
+        <p class="standalone-note">
+          Choose a track, then press play. The player uses the included generated OGG soundbank;
+          diagnostics are available in the selector.
+        </p>
+      </section>
+    </main>
+    <script type="module" src="/src/standalone-main.js"></script>
+  </body>
+</html>

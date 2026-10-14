@@ -1,3 +1,4 @@
+import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 
 export default defineConfig(({ command }) => ({
@@ -5,6 +6,12 @@ export default defineConfig(({ command }) => ({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    sourcemap: false
+    sourcemap: false,
+    rollupOptions: {
+      input: {
+        inspector: resolve(import.meta.dirname, 'index.html'),
+        player: resolve(import.meta.dirname, 'player.html')
+      }
+    }
   }
 }));

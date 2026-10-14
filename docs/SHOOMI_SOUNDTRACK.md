@@ -6,6 +6,8 @@
 
 This page can be used as a simple in-browser MIDI player, but it also includes a lot of inspection tools for tracks, lyrics, metadata, controller changes, and remapping.
 
+For a minimal player without the inspection interface, open [the standalone player](../player.html). Choose a MIDI, then use its round play/pause button. It includes the same soundtrack and soundbank diagnostic files.
+
 ## Quick Start
 
 1. Install dependencies and start the Vite development server from the project root:

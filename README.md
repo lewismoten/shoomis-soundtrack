@@ -10,6 +10,20 @@ A Vite-powered browser MIDI player and soundtrack inspector designed to deploy o
 
 Choose either diagnostic from the page’s **Soundbank diagnostics** group, then use the main play button. They are intentionally not regular soundtrack tracks: they verify pitch-shifting across the melodic range and drum fallback mapping.
 
+## Standalone player
+
+For a focused listening experience without the visualizers and MIDI-inspection tools, open [`player.html`](player.html). It has a track selector, one play/pause button, and the same built-in soundtrack and diagnostic MIDI files. On GitHub Pages, it is available at `https://lewismoten.github.io/shoomis-soundtrack/player.html`.
+
+For another page in this project, mount the reusable player with:
+
+```js
+import { mountStandalonePlayer } from './src/player/standalone-player.js';
+
+mountStandalonePlayer(document.querySelector('#player-target'));
+```
+
+Pass `{ tracks, assetBase }` as the optional second argument to supply a custom library or deployment base path. Each track is `{ path, label, caption }`; `path` is relative to the deployed site root.
+
 See [the player guide](docs/SHOOMI_SOUNDTRACK.md).
 
 ## Original generated soundbank
@@ -44,6 +58,7 @@ Use `npm run dev` for a local development server, or `npm run preview` to inspec
 
 - `src/main.js` — application entry point
 - `src/player/` — named ES modules for the MIDI engine, playback session, timeline data, sound mapping, rendering, metadata, and interactions
+- `src/player/standalone-player.js` — reusable compact player module
 - `src/styles/` — site styling
 - `public/midi/` — files copied unchanged into the deployed site
 - `public/midi-tests/` — built-in soundbank diagnostic MIDI files
