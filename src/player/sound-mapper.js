@@ -25,6 +25,7 @@ function renderTrackSoundMapper(song, options) {
       '<LABEL FOR="mapping-bias-select" CLASS="soundtrack-mapper-bias-label">Global mapping mode:</LABEL>' +
       '<SELECT ID="mapping-bias-select" CLASS="soundtrack-mapper-bias-select">' +
       renderMappingBiasOption('auto', 'Auto by MIDI/program', options.getMappingBias()) +
+      renderMappingBiasOption('samples', 'Use generated soundbank', options.getMappingBias()) +
       renderMappingBiasOption('wave:sine', 'All melodic -> Sine', options.getMappingBias()) +
       renderMappingBiasOption(
         'wave:triangle',
@@ -66,10 +67,14 @@ function renderTrackSoundMapper(song, options) {
         '<SELECT DATA-TRACK-SOUND="' +
         summary.index +
         '" CLASS="soundtrack-mapper-track-select">' +
+        renderSoundOption('program:35', '35: Neutral Bass F2', currentChoice, options) +
+        renderSoundOption('program:50', '50: Neutral Strings G4', currentChoice, options) +
+        renderSoundOption('program:99', '99: Neutral Atmosphere C4', currentChoice, options) +
         renderSoundOption('wave:sine', 'Wave: Sine', currentChoice, options) +
         renderSoundOption('wave:triangle', 'Wave: Triangle', currentChoice, options) +
         renderSoundOption('wave:square', 'Wave: Square', currentChoice, options) +
         renderSoundOption('wave:sawtooth', 'Wave: Saw', currentChoice, options) +
+        renderSoundOption('drumkit', 'Generated Drum Kit', currentChoice, options) +
         '</SELECT>' +
         '</TD>' +
         '<TD ALIGN="CENTER"><DIV CLASS="soundtrack-preview-wrap">' +
@@ -370,7 +375,21 @@ function suggestSoundChoice(summary, event, options) {
     return forcedWave;
   }
 
-  return event && event.channel === 9 ? 'wave:square' : 'wave:triangle';
+  if (event && event.channel === 9) {
+    return 'drumkit';
+  }
+
+  if (event && event.program === 35) {
+    return 'program:35';
+  }
+  if (event && event.program === 99) {
+    return 'program:99';
+  }
+  if (event && (event.program === 50 || event.program === 48 || event.program === 49)) {
+    return 'program:50';
+  }
+
+  return 'wave:triangle';
 }
 
 function getForcedWaveBias(options) {

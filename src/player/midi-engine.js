@@ -180,7 +180,17 @@ function createDreamSoundtrackController(options) {
     69: 69
   };
 
-  var sampleUrls = {};
+  var sampleUrls = {
+    bass: resolveAsset('soundbank/bass-f2.ogg'),
+    strings: resolveAsset('soundbank/strings-g4.ogg'),
+    goblins: resolveAsset('soundbank/atmosphere-c4.ogg'),
+    drum_hihat_closed: resolveAsset('soundbank/closed-hihat.ogg'),
+    drum_hihat_open: resolveAsset('soundbank/open-hihat.ogg'),
+    drum_crash: resolveAsset('soundbank/crash.ogg'),
+    drum_ride: resolveAsset('soundbank/ride.ogg'),
+    drum_tambourine: resolveAsset('soundbank/tambourine.ogg'),
+    drum_cabasa: resolveAsset('soundbank/cabasa.ogg')
+  };
 
   toggleEl.addEventListener('click', togglePlayback);
   setUi(false, 'click to load');
@@ -1022,12 +1032,28 @@ function createDreamSoundtrackController(options) {
   function resolveSampleDef(event) {
     var soundChoice = trackSoundMap[event.trackIndex];
     var soundMode = getTrackSoundMode(soundChoice);
+    var programNumber;
+    var drumNote;
 
     if (soundMode === 'wave') {
       return getWaveformDef(soundChoice);
     }
 
-    return getWaveformDef(event.channel === 9 ? 'wave:square' : 'wave:triangle');
+    if (soundMode === 'drumkit') {
+      drumNote = getMappedDrumNote(soundChoice, event.note);
+      return resolveDrumLikeSample(drumNote);
+    }
+
+    if (soundMode === 'program') {
+      programNumber = getProgramNumber(soundChoice);
+      return instrumentSamples[programNumber] || getWaveformDef('wave:triangle');
+    }
+
+    if (event.channel === 9 || isDrumBankSelected(event.bankMsb, event.bankLsb)) {
+      return resolveDrumLikeSample(event.note);
+    }
+
+    return instrumentSamples[event.program] || getWaveformDef('wave:triangle');
   }
 
   function isDrumBankSelected(bankMsb, bankLsb) {
@@ -1144,9 +1170,21 @@ function createDreamSoundtrackController(options) {
 
   function resolvePreviewChoice(soundChoice) {
     var soundMode = getTrackSoundMode(soundChoice);
+    var programNumber;
+    var drumNote;
 
     if (soundMode === 'wave') {
       return getWaveformDef(soundChoice);
+    }
+
+    if (soundMode === 'drumkit') {
+      drumNote = getMappedDrumNote(soundChoice, 42);
+      return resolveDrumLikeSample(drumNote);
+    }
+
+    if (soundMode === 'program') {
+      programNumber = getProgramNumber(soundChoice);
+      return instrumentSamples[programNumber] || getWaveformDef('wave:triangle');
     }
 
     return getWaveformDef('wave:triangle');

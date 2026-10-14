@@ -8,7 +8,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate:soundbank": "node tools/generate-soundbank.mjs",
+    "validate:soundbank": "node tools/validate-soundbank.mjs"
   },
   "devDependencies": {
     "eslint": "^10.12.0",

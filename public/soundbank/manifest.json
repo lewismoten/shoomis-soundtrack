@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "provenance": "Generated from scratch by tools/generate-soundbank.mjs using mathematical waveforms and deterministic noise. No external soundbank, recording, or sample is used.",
+  "sampleRate": 22050,
+  "melodic": [
+    { "id": "bass", "file": "bass-f2.ogg", "rootNote": 41, "program": 35 },
+    { "id": "strings", "file": "strings-g4.ogg", "rootNote": 67, "program": 50 },
+    { "id": "atmosphere", "file": "atmosphere-c4.ogg", "rootNote": 60, "program": 99 }
+  ],
+  "drums": [
+    { "id": "closed-hihat", "file": "closed-hihat.ogg", "midiNote": 42 },
+    { "id": "open-hihat", "file": "open-hihat.ogg", "midiNote": 46 },
+    { "id": "crash", "file": "crash.ogg", "midiNote": 49 },
+    { "id": "ride", "file": "ride.ogg", "midiNote": 51 },
+    { "id": "tambourine", "file": "tambourine.ogg", "midiNote": 54 },
+    { "id": "cabasa", "file": "cabasa.ogg", "midiNote": 69 }
+  ],
+  "fixtures": [
+    { "file": "../midi-tests/all-notes.mid", "purpose": "Chromatic MIDI notes 0–127" },
+    { "file": "../midi-tests/drum-range.mid", "purpose": "GM drum notes 35–81" }
+  ]
+}
