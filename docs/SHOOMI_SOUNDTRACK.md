@@ -13,7 +13,7 @@ This page can be used as a simple in-browser MIDI player, but it also includes a
    ./tools/serve_site.sh
    ```
 2. Open the soundtrack page:
-   [soundtrack/index.html](../soundtrack/index.html)
+   [index.html](../index.html)
 3. Either:
    - pick one of the built-in songs from the dropdown
    - or choose `Use a MIDI file from your computer` and load your own `.mid` / `.midi` file

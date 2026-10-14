@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!doctype html>
 <html>
   <head>
     <title>Shoomi Dream Soundtrack</title>
-    <link rel="stylesheet" href="index.css?v=20260606" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body class="soundtrack-page">
     <center>
@@ -23,7 +23,7 @@
           </button>
           <div class="soundtrack-hidden">
             <span ID="sound-status">soundtrack</span>
-            <a id="midi-link" href="rock_a_bye_baby.mid" type="audio/midi">MIDI</a>
+            <a id="midi-link" href="midi/rock_a_bye_baby.mid" type="audio/midi">MIDI</a>
           </div>
         </div>
 
@@ -42,9 +42,9 @@
               Select a soundtrack
             </label>
             <select id="midi-select" class="soundtrack-select soundtrack-select-main">
-              <option value="rock_a_bye_baby.mid?v=3">Rock-a-bye Baby</option>
-              <option value="hush_little_baby.mid?v=6">Hush, Little Baby</option>
-              <option value="twinkle_twinkle_little_star.mid?v=3">
+              <option value="midi/rock_a_bye_baby.mid">Rock-a-bye Baby</option>
+              <option value="midi/hush_little_baby.mid">Hush, Little Baby</option>
+              <option value="midi/twinkle_twinkle_little_star.mid">
                 Twinkle, Twinkle, Little Star
               </option>
             </select>
@@ -268,16 +268,6 @@
       <div id="track-hover-tooltip" class="soundtrack-tooltip"></div>
       <audio id="soundtrack" hidden></audio>
     </center>
-    <script src="soundtrack-webaudio.js?v=20260606"></script>
-    <script src="index-shared.js?v=20260606"></script>
-    <script src="index-visualizer.js?v=20260606"></script>
-    <script src="index-markers.js?v=20260606"></script>
-    <script src="index-interaction.js?v=20260606"></script>
-    <script src="index-data.js?v=20260606"></script>
-    <script src="index-session.js?v=20260606"></script>
-    <script src="index-metadata.js?v=20260606"></script>
-    <script src="index-state.js?v=20260606"></script>
-    <script src="index-mapper.js?v=20260606"></script>
-    <script src="index.js?v=20260606"></script>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>

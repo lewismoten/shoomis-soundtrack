@@ -69,7 +69,7 @@
   var pageData = window.ShoomiIndexData || {};
   var pageSession = window.ShoomiIndexSession || {};
   var params = new URLSearchParams(window.location.search);
-  var selectedMidi = params.get('midi') || 'rock_a_bye_baby.mid?v=3';
+  var selectedMidi = params.get('midi') || 'midi/rock_a_bye_baby.mid';
   var suggestionProfile = params.get('profile') || 'gm';
   var trackInfo;
   var absoluteAssetBase;
@@ -610,7 +610,7 @@
   }
 
   if (!TRACKS[selectedMidi] && !params.get('custom_url')) {
-    selectedMidi = 'rock_a_bye_baby.mid?v=3';
+    selectedMidi = 'midi/rock_a_bye_baby.mid';
   }
   if (!/^(gm|gs|xg|game)$/.test(suggestionProfile)) {
     suggestionProfile = 'gm';
@@ -619,7 +619,7 @@
 
   fullSongToggle.checked = params.get('full') !== '0';
   windowSlider.value = String(Math.max(1, Math.min(30, Number(params.get('range')) || 10)));
-  absoluteAssetBase = new URL('.', window.location.href).toString().replace(/\/$/, '');
+  absoluteAssetBase = window.__shoomisAssetBase || '';
 
   midiSourceLibrary.onchange = function () {
     if (!midiSourceLibrary.checked) {

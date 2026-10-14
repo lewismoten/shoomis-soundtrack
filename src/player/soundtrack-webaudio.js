@@ -53,7 +53,7 @@
   window.createDreamSoundtrackController = function createDreamSoundtrackController(options) {
     var AudioContextCtor = window.AudioContext || window.webkitAudioContext;
     var assetBase = (options.assetBase || '').replace(/\/$/, '');
-    var midiUrl = options.midiUrl || resolveAsset('rock_a_bye_baby.mid');
+    var midiUrl = options.midiUrl || resolveAsset('midi/rock_a_bye_baby.mid');
     var midiData = options.midiData || null;
     var onSongReady = options.onSongReady;
     var onLoadError = options.onLoadError;

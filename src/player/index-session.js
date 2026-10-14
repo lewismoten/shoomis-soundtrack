@@ -99,7 +99,7 @@
     var controller = options.getController ? options.getController() : null;
 
     if (!midiOptions && !options.tracks[selectedMidi]) {
-      selectedMidi = 'rock_a_bye_baby.mid?v=3';
+      selectedMidi = 'midi/rock_a_bye_baby.mid';
     }
 
     if (options.setSelectedMidi) {

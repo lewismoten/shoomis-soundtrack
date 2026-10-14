@@ -1,15 +1,15 @@
 (function () {
   var TRACKS = {
-    'rock_a_bye_baby.mid?v=3': {
+    'midi/rock_a_bye_baby.mid': {
       label: 'Rock-a-bye Baby',
       caption: 'A lullaby arranged with the same dream soundtrack palette.'
     },
-    'hush_little_baby.mid?v=6': {
+    'midi/hush_little_baby.mid': {
       label: 'Hush, Little Baby',
       caption:
         'A second lullaby with extra pad swells, bass steps, and bedtime percussion flourishes.'
     },
-    'twinkle_twinkle_little_star.mid?v=3': {
+    'midi/twinkle_twinkle_little_star.mid': {
       label: 'Twinkle, Twinkle, Little Star',
       caption: 'A brighter lullaby example with the same dream soundtrack palette and lyric timing.'
     }

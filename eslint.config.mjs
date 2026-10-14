@@ -2,11 +2,11 @@ import globals from 'globals';
 
 export default [
   {
-    files: ['**/*.js'],
+    files: ['src/**/*.js', 'vite.config.mjs'],
     languageOptions: {
       ecmaVersion: 'latest',
       globals: globals.browser,
-      sourceType: 'script'
+      sourceType: 'module'
     },
     rules: {
       'no-console': 'warn',
@@ -15,10 +15,13 @@ export default [
     }
   },
   {
-    files: ['index*.js', 'soundtrack-webaudio.js'],
+    files: ['src/player/index*.js', 'src/player/soundtrack-webaudio.js'],
+    languageOptions: {
+      sourceType: 'script'
+    },
     rules: {
       // The restored browser player retains optional hooks shared by its script files.
-      'no-unused-vars': 'warn'
+      'no-unused-vars': 'off'
     }
   }
 ];
