@@ -1,10 +1,14 @@
 # Shoomis Soundtrack
 
-A Vite-powered browser MIDI player and soundtrack inspector designed to deploy on GitHub Pages. It includes Shoomi MIDI tracks, Web Audio waveform playback, track visualization, metadata inspection, lyric display when present in a MIDI file, and support for loading local MIDI files.
+A Vite-powered browser MIDI player and soundtrack inspector designed to deploy on GitHub Pages. It includes Shoomi MIDI tracks, an original generated OGG soundbank with Web Audio waveform fallbacks, track visualization, metadata inspection, lyric display when present in a MIDI file, and support for loading local MIDI files.
 
-## Included soundtrack
+## Built-in MIDI library
 
 - `public/midi/rock_a_bye_baby.mid`, `public/midi/hush_little_baby.mid`, and `public/midi/twinkle_twinkle_little_star.mid`
+- `public/midi-tests/all-notes.mid` — every melodic MIDI note from 0 through 127
+- `public/midi-tests/drum-range.mid` — General MIDI percussion notes 35 through 81
+
+Choose either diagnostic from the page’s **Soundbank diagnostics** group, then use the main play button. They are intentionally not regular soundtrack tracks: they verify pitch-shifting across the melodic range and drum fallback mapping.
 
 See [the player guide](docs/SHOOMI_SOUNDTRACK.md).
 
@@ -18,7 +22,7 @@ The checked-in [soundbank manifest](public/soundbank/manifest.json) records each
 
 ## Add music
 
-The player can load any local `.mid` or `.midi` file with its file picker. To add another built-in song, place it in `public/midi/` and add it to the select list in `index.html` and the metadata map in `src/player/index-shared.js`.
+The player can load any local `.mid` or `.midi` file with its file picker. To add another built-in song, place it in `public/midi/` and add it to the selector in `index.html` and the metadata map in `src/player/music-theory.js`. Add diagnostic fixtures under `public/midi-tests/` instead.
 
 ## Development
 
@@ -42,7 +46,11 @@ Use `npm run dev` for a local development server, or `npm run preview` to inspec
 - `src/player/` — named ES modules for the MIDI engine, playback session, timeline data, sound mapping, rendering, metadata, and interactions
 - `src/styles/` — site styling
 - `public/midi/` — files copied unchanged into the deployed site
+- `public/midi-tests/` — built-in soundbank diagnostic MIDI files
+- `public/soundbank/` — generated OGG assets and their manifest
 - `docs/` — player reference documentation
+- `tools/generate-soundbank.mjs` — reproducible original OGG and diagnostic MIDI generator
+- `tools/validate-soundbank.mjs` — dependency-free soundbank fixture validator
 - `dist/` — generated production site; never edit or commit it
 
 ## Publish to GitHub Pages

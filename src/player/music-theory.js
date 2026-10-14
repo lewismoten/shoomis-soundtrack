@@ -11,6 +11,16 @@ var TRACKS = {
   'midi/twinkle_twinkle_little_star.mid': {
     label: 'Twinkle, Twinkle, Little Star',
     caption: 'A brighter lullaby example with the same dream soundtrack palette and lyric timing.'
+  },
+  'midi-tests/all-notes.mid': {
+    label: 'All melodic notes (0–127)',
+    caption:
+      'Soundbank diagnostic: plays every MIDI note from 0 through 127 using the neutral strings root note.'
+  },
+  'midi-tests/drum-range.mid': {
+    label: 'GM drum range (35–81)',
+    caption:
+      'Soundbank diagnostic: plays the common General MIDI percussion range and exercises drum fallback mapping.'
   }
 };
 var TRACK_COLORS = {

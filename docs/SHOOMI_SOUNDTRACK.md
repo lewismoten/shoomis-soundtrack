@@ -8,14 +8,15 @@ This page can be used as a simple in-browser MIDI player, but it also includes a
 
 ## Quick Start
 
-1. Start the local site server from the project root:
+1. Install dependencies and start the Vite development server from the project root:
    ```bash
-   ./tools/serve_site.sh
+   npm install
+   npm run dev
    ```
 2. Open the soundtrack page:
    [index.html](../index.html)
 3. Either:
-   - pick one of the built-in songs from the dropdown
+   - pick a soundtrack or soundbank diagnostic from the dropdown
    - or choose `Use a MIDI file from your computer` and load your own `.mid` / `.midi` file
 4. Click the play button in the sticky header.
 
@@ -32,8 +33,8 @@ The soundtrack page:
 
 - parses the MIDI in the browser
 - visualizes note tracks and timed meta/control tracks
-- plays the file through basic Web Audio waveform synths
-- lets you remap tracks if the original instrument choices do not fit the limited sample set
+- plays the file through a compact, original generated OGG soundbank with Web Audio waveform fallbacks
+- lets you remap tracks if the original instrument choices do not fit the compact soundbank
 
 Important limitation:
 
@@ -55,10 +56,10 @@ The header stays visible while you scroll, so you can pause or resume without go
 
 In the `Choose a dream tune` panel:
 
-- `Select a soundtrack`
-  - uses one of the built-in MIDI files
+- `Select a built-in MIDI`
+  - uses one of the soundtrack tracks or diagnostics packaged with the site
 - the dropdown
-  - chooses the built-in track
+  - groups regular tracks under `Soundtrack` and test files under `Soundbank diagnostics`
 - `Use a MIDI file from your computer`
   - loads a local MIDI file from your machine
 - the file picker
@@ -68,6 +69,17 @@ Behavior notes:
 
 - switching the dropdown moves the page back to the built-in soundtrack mode
 - selecting a local file switches the page into file mode
+
+### Soundbank diagnostics
+
+The dropdown contains two generated test files that can be played exactly like soundtrack tracks:
+
+- `All melodic notes (0–127)`
+  - verifies the neutral melodic root note can be pitch-shifted across the entire MIDI note range
+- `GM drum range (35–81)`
+  - verifies generated drum sounds and the nearest-hit fallback mapping for common GM percussion notes
+
+These fixtures live in `public/midi-tests/`; their expected files and mappings are recorded in `public/soundbank/manifest.json` and checked with `npm run validate:soundbank`.
 
 ## Program Meaning Profile
 
@@ -100,6 +112,11 @@ You may see:
 
 Possible playback choices include:
 
+- generated neutral-note soundbank choices such as:
+  - `35: Neutral Bass F2`
+  - `50: Neutral Strings G4`
+  - `99: Neutral Atmosphere C4`
+  - `Generated Drum Kit`
 - waveform synth choices such as:
   - `Wave: Sine`
   - `Wave: Triangle`
@@ -243,9 +260,9 @@ This page works especially well when you want to:
 
 ## What To Expect From Sound
 
-Because the player uses basic waveform synths:
+Because the player uses a compact generated soundbank rather than a full General MIDI soundfont:
 
-- strings, bass, and pad-like parts may need manual waveform remapping
+- strings, bass, and pad-like parts may need manual soundbank or waveform remapping
 - drum-heavy or controller-heavy files may need manual remapping
 - advanced MIDI synth behavior may be approximated rather than perfectly reproduced
 
@@ -253,8 +270,3 @@ Because the player uses basic waveform synths:
 
 - [Back to the main project overview](../README.md)
 - [Shoomi's Soundtrack](SHOOMI_SOUNDTRACK.md)
-- [MIDI Metadata](midi_metadata.md)
-- [Soundtrack License Notes](SOUNDTRACK_LICENSE_NOTES.md)
-- [Java Applet Notes](JAVA_APPLET_NOTES.md)
-- [Nightmare Font Notes](NIGHTMARE_FONT_NOTES.md)
-- [Cool Color Writer Notes](COOL_COLOR_WRITER_NOTES.md)

@@ -28,7 +28,7 @@
         </div>
 
         <div class="soundtrack-panel soundtrack-panel-chooser">
-          <div class="soundtrack-panel-title">Choose a dream tune</div>
+          <div class="soundtrack-panel-title">Choose a MIDI</div>
           <div class="soundtrack-mt-8">
             <label class="soundtrack-block-label">
               <input
@@ -39,14 +39,20 @@
                 checked
                 class="soundtrack-radio"
               />
-              Select a soundtrack
+              Select a built-in MIDI
             </label>
             <select id="midi-select" class="soundtrack-select soundtrack-select-main">
-              <option value="midi/rock_a_bye_baby.mid">Rock-a-bye Baby</option>
-              <option value="midi/hush_little_baby.mid">Hush, Little Baby</option>
-              <option value="midi/twinkle_twinkle_little_star.mid">
-                Twinkle, Twinkle, Little Star
-              </option>
+              <optgroup label="Soundtrack">
+                <option value="midi/rock_a_bye_baby.mid">Rock-a-bye Baby</option>
+                <option value="midi/hush_little_baby.mid">Hush, Little Baby</option>
+                <option value="midi/twinkle_twinkle_little_star.mid">
+                  Twinkle, Twinkle, Little Star
+                </option>
+              </optgroup>
+              <optgroup label="Soundbank diagnostics">
+                <option value="midi-tests/all-notes.mid">All melodic notes (0–127)</option>
+                <option value="midi-tests/drum-range.mid">GM drum range (35–81)</option>
+              </optgroup>
             </select>
           </div>
           <div class="soundtrack-divider-tight">
@@ -77,15 +83,15 @@
           <div id="lyric-status" class="soundtrack-lyric-status"></div>
           <div id="midi-caption" class="soundtrack-caption"></div>
           <div class="soundtrack-note soundtrack-mt-8">
-            This web player uses basic Web Audio waveforms, so imported MIDI files may need their
-            track mapping adjusted to sound better here. MIDI files are instructions for instruments
-            to play or trigger events, not full audio recordings, so an external song will not sound
-            exactly like its original playback unless it used the same instruments, note ranges, and
-            synth settings.
+            This web player uses a compact generated soundbank and Web Audio waveform fallbacks, so
+            imported MIDI files may need their track mapping adjusted to sound better here. MIDI
+            files are instructions for instruments to play or trigger events, not full audio
+            recordings, so an external song will not sound exactly like its original playback unless
+            it used the same instruments, note ranges, and synth settings.
           </div>
           <div class="soundtrack-note soundtrack-note-tight">
-            Waveform playback keeps this site small and self-contained, but it is an approximation
-            rather than a full General MIDI soundfont.
+            The generated soundbank keeps this site small and self-contained, but it is an
+            approximation rather than a full General MIDI soundfont.
           </div>
           <div class="soundtrack-divider">
             <label
