@@ -13,5 +13,12 @@ export default [
       'no-unused-vars': 'error',
       'prefer-const': 'error'
     }
+  },
+  {
+    files: ['index*.js', 'soundtrack-webaudio.js'],
+    rules: {
+      // The restored browser player retains optional hooks shared by its script files.
+      'no-unused-vars': 'warn'
+    }
   }
 ];

@@ -1,24 +1,16 @@
 # Shoomis Soundtrack
 
-A lightweight, dependency-free music player designed to deploy on GitHub Pages.
+A browser-based MIDI player and soundtrack inspector designed to deploy on GitHub Pages. It includes Shoomi MIDI tracks, Web Audio waveform playback, track visualization, metadata inspection, lyric display when present in a MIDI file, and support for loading local MIDI files.
+
+## Included soundtrack
+
+- `rock_a_bye_baby.mid`, `hush_little_baby.mid`, and `twinkle_twinkle_little_star.mid`
+
+See [the player guide](docs/SHOOMI_SOUNDTRACK.md).
 
 ## Add music
 
-1. Put audio files in `audio/` (for example, `audio/01-dawn.mp3`).
-2. Add each track to `tracks.json`:
-
-```json
-[
-  {
-    "title": "Dawn",
-    "artist": "Shoomis",
-    "file": "audio/01-dawn.mp3",
-    "duration": "3:42"
-  }
-]
-```
-
-The `duration` label is optional; the player reads the real playback duration from the file.
+The player can load any local `.mid` or `.midi` file with its file picker. To add another built-in song, place the MIDI at the repository root and add it to the select list in `index.html`.
 
 ## Development
 

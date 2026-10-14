@@ -1,58 +1,283 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#12120f" />
-    <title>Shoomis — Soundtrack</title>
-    <meta name="description" content="The official soundtrack for Shoomis." />
-    <link rel="stylesheet" href="styles.css" />
+    <title>Shoomi Dream Soundtrack</title>
+    <link rel="stylesheet" href="index.css?v=20260606" />
   </head>
-  <body>
-    <main class="shell">
-      <header class="masthead">
-        <p class="eyebrow">Original soundtrack</p>
-        <h1>Shoomis</h1>
-        <p class="intro">A small place for the music.</p>
-      </header>
-
-      <section class="player" aria-labelledby="now-playing">
-        <div class="art" aria-hidden="true"><span>♪</span></div>
-        <div class="now-playing">
-          <p class="eyebrow">Now playing</p>
-          <h2 id="now-playing">Choose a track</h2>
-          <p id="artist">Shoomis soundtrack</p>
+  <body class="soundtrack-page">
+    <center>
+      <div class="soundtrack-page-shell">
+        <div class="soundtrack-sticky-header">
+          <div class="soundtrack-title">Shoomi's Soundtrack</div>
+          <div class="soundtrack-subtitle">Late-90s MIDI restored with Web Audio</div>
+          <canvas id="spectrum-visualizer" width="180" height="44" class="soundtrack-spectrum">
+            Spectrum visualization
+          </canvas>
+          <button
+            id="sound-toggle"
+            type="BUTTON"
+            title="Play or pause the soundtrack"
+            class="soundtrack-toggle"
+          >
+            ...
+          </button>
+          <div class="soundtrack-hidden">
+            <span ID="sound-status">soundtrack</span>
+            <a id="midi-link" href="rock_a_bye_baby.mid" type="audio/midi">MIDI</a>
+          </div>
         </div>
-        <button
-          id="play-toggle"
-          class="play-button"
-          type="button"
-          aria-label="Play selected track"
-          disabled
-        >
-          ▶
-        </button>
-      </section>
 
-      <div class="progress-row" aria-label="Playback progress">
-        <time id="elapsed">0:00</time>
-        <input id="progress" type="range" min="0" max="100" value="0" aria-label="Seek" disabled />
-        <time id="duration">0:00</time>
+        <div class="soundtrack-panel soundtrack-panel-chooser">
+          <div class="soundtrack-panel-title">Choose a dream tune</div>
+          <div class="soundtrack-mt-8">
+            <label class="soundtrack-block-label">
+              <input
+                id="midi-source-library"
+                type="RADIO"
+                name="midi-source"
+                value="library"
+                checked
+                class="soundtrack-radio"
+              />
+              Select a soundtrack
+            </label>
+            <select id="midi-select" class="soundtrack-select soundtrack-select-main">
+              <option value="rock_a_bye_baby.mid?v=3">Rock-a-bye Baby</option>
+              <option value="hush_little_baby.mid?v=6">Hush, Little Baby</option>
+              <option value="twinkle_twinkle_little_star.mid?v=3">
+                Twinkle, Twinkle, Little Star
+              </option>
+            </select>
+          </div>
+          <div class="soundtrack-divider-tight">
+            <div class="soundtrack-section-label">Bring Your Own MIDI</div>
+            <div class="soundtrack-mt-8">
+              <label class="soundtrack-block-label">
+                <input
+                  id="midi-source-file"
+                  type="RADIO"
+                  name="midi-source"
+                  value="file"
+                  class="soundtrack-radio"
+                />
+                Use a MIDI file from your computer
+              </label>
+              <input
+                id="midi-file"
+                type="FILE"
+                accept=".mid,.midi,audio/midi,audio/x-midi"
+                class="soundtrack-file-input"
+              />
+            </div>
+            <div class="soundtrack-note soundtrack-note-tight">
+              Local MIDI files load directly from your computer for inspection and playback.
+            </div>
+          </div>
+          <div id="timing-status" class="soundtrack-status soundtrack-status-hidden"></div>
+          <div id="lyric-status" class="soundtrack-lyric-status"></div>
+          <div id="midi-caption" class="soundtrack-caption"></div>
+          <div class="soundtrack-note soundtrack-mt-8">
+            This web player uses basic Web Audio waveforms, so imported MIDI files may need their
+            track mapping adjusted to sound better here. MIDI files are instructions for instruments
+            to play or trigger events, not full audio recordings, so an external song will not sound
+            exactly like its original playback unless it used the same instruments, note ranges, and
+            synth settings.
+          </div>
+          <div class="soundtrack-note soundtrack-note-tight">
+            Waveform playback keeps this site small and self-contained, but it is an approximation
+            rather than a full General MIDI soundfont.
+          </div>
+          <div class="soundtrack-divider">
+            <label
+              for="program-profile"
+              class="soundtrack-inline-label soundtrack-inline-label-profile"
+              >Program meaning profile:</label
+            >
+            <select id="program-profile" class="soundtrack-select soundtrack-select-profile">
+              <option value="gm">General MIDI (GM)</option>
+              <option value="gs">Roland GS</option>
+              <option value="xg">Yamaha XG</option>
+              <option value="game">Game / chip heuristic</option>
+            </select>
+            <div class="soundtrack-note soundtrack-note-tight">
+              GM is the base 128-program standard. GS and XG usually keep those base meanings and
+              extend them. Game / chip heuristic keeps the same numbers, but leans the automatic
+              remapping toward console-style MIDI conversions.
+            </div>
+          </div>
+          <div id="track-sound-mapper" class="soundtrack-detail-block soundtrack-mt-10"></div>
+        </div>
+
+        <div class="soundtrack-panel soundtrack-panel-flow">
+          <div class="soundtrack-panel-title soundtrack-mb-8">Track flow</div>
+          <canvas
+            id="track-visualizer"
+            width="478"
+            height="220"
+            class="soundtrack-canvas soundtrack-canvas-track"
+          >
+            Track visualization
+          </canvas>
+          <div class="soundtrack-legend">
+            Colored lanes show where each track is active, while the bright vertical line marks the
+            current playback position.
+          </div>
+          <div class="soundtrack-controls">
+            <label class="soundtrack-controls-inline soundtrack-controls-inline-gap">
+              <input id="full-song-toggle" type="CHECKBOX" checked class="soundtrack-checkbox" />
+              Show full song
+            </label>
+            <label
+              for="window-slider"
+              class="soundtrack-controls-inline soundtrack-controls-inline-smallgap"
+              >Range:</label
+            >
+            <input
+              id="window-slider"
+              type="RANGE"
+              min="1"
+              max="30"
+              step="1"
+              value="10"
+              class="soundtrack-range soundtrack-window-slider"
+            />
+            <span ID="window-slider-value" CLASS="soundtrack-window-value">10 sec</span>
+            <label class="soundtrack-controls-inline soundtrack-controls-inline-leftgap">
+              <input id="track-marker-toggle" type="CHECKBOX" class="soundtrack-checkbox" />
+              Show change markers
+            </label>
+          </div>
+          <div id="marker-controls-wrap" class="soundtrack-marker-wrap">
+            <span CLASS="soundtrack-marker-label">Marker types:</span>
+            <label class="soundtrack-marker-option soundtrack-marker-program"
+              ><input
+                id="marker-type-program"
+                type="CHECKBOX"
+                checked
+                class="soundtrack-checkbox"
+              />
+              Program</label
+            >
+            <label class="soundtrack-marker-option soundtrack-marker-bank-msb"
+              ><input
+                id="marker-type-bank-msb"
+                type="CHECKBOX"
+                checked
+                class="soundtrack-checkbox"
+              />
+              Bank M</label
+            >
+            <label class="soundtrack-marker-option soundtrack-marker-bank-lsb"
+              ><input
+                id="marker-type-bank-lsb"
+                type="CHECKBOX"
+                checked
+                class="soundtrack-checkbox"
+              />
+              Bank L</label
+            >
+            <label class="soundtrack-marker-option soundtrack-marker-nrpn-msb"
+              ><input
+                id="marker-type-nrpn-msb"
+                type="CHECKBOX"
+                checked
+                class="soundtrack-checkbox"
+              />
+              NRPN M</label
+            >
+            <label class="soundtrack-marker-option soundtrack-marker-nrpn-lsb"
+              ><input
+                id="marker-type-nrpn-lsb"
+                type="CHECKBOX"
+                checked
+                class="soundtrack-checkbox"
+              />
+              NRPN L</label
+            >
+            <label class="soundtrack-marker-option soundtrack-marker-data"
+              ><input id="marker-type-data" type="CHECKBOX" checked class="soundtrack-checkbox" />
+              Data</label
+            >
+            <label class="soundtrack-marker-option soundtrack-marker-volume"
+              ><input id="marker-type-volume" type="CHECKBOX" checked class="soundtrack-checkbox" />
+              Volume</label
+            >
+            <label class="soundtrack-marker-option soundtrack-marker-pan"
+              ><input id="marker-type-pan" type="CHECKBOX" checked class="soundtrack-checkbox" />
+              Pan</label
+            >
+            <label class="soundtrack-marker-option soundtrack-marker-expression"
+              ><input
+                id="marker-type-expression"
+                type="CHECKBOX"
+                checked
+                class="soundtrack-checkbox"
+              />
+              Expression</label
+            >
+            <label class="soundtrack-marker-option soundtrack-marker-attack"
+              ><input id="marker-type-attack" type="CHECKBOX" checked class="soundtrack-checkbox" />
+              Attack</label
+            >
+            <label class="soundtrack-marker-option soundtrack-marker-reverb"
+              ><input id="marker-type-reverb" type="CHECKBOX" checked class="soundtrack-checkbox" />
+              Reverb</label
+            >
+            <label class="soundtrack-marker-option soundtrack-marker-other"
+              ><input id="marker-type-other" type="CHECKBOX" checked class="soundtrack-checkbox" />
+              Other</label
+            >
+            <div class="soundtrack-marker-subrow">
+              <label class="soundtrack-controls-inline"
+                ><input id="register-link-toggle" type="CHECKBOX" class="soundtrack-checkbox" />
+                Show register links</label
+              >
+              <label class="soundtrack-controls-inline soundtrack-controls-inline-leftgap"
+                ><input id="register-state-toggle" type="CHECKBOX" class="soundtrack-checkbox" />
+                Track register values</label
+              >
+            </div>
+          </div>
+          <div
+            id="register-state-status"
+            class="soundtrack-detail-block soundtrack-status-hidden"
+          ></div>
+          <div id="meta-visualizer-wrap" class="soundtrack-meta-wrap">
+            <div class="soundtrack-panel-title soundtrack-mb-8">Meta / control flow</div>
+            <canvas
+              id="meta-visualizer"
+              width="478"
+              height="140"
+              class="soundtrack-canvas soundtrack-canvas-meta"
+            >
+              Meta track visualization
+            </canvas>
+            <div id="meta-hover-tooltip" class="soundtrack-tooltip"></div>
+            <div class="soundtrack-legend">
+              Timed lyrics, text, and control events are shown here when they happen during the
+              song.
+            </div>
+            <div id="meta-state-status" class="soundtrack-status soundtrack-lyric-status"></div>
+            <div id="meta-current-status" class="soundtrack-status soundtrack-status-hidden"></div>
+            <div id="meta-lane-details" class="soundtrack-detail-block"></div>
+          </div>
+          <div id="track-details" class="soundtrack-detail-block"></div>
+          <div id="song-metadata" class="soundtrack-detail-block"></div>
+        </div>
       </div>
-
-      <section class="track-section" aria-labelledby="track-list-heading">
-        <div class="section-heading">
-          <h2 id="track-list-heading">Track list</h2>
-          <span id="track-count"></span>
-        </div>
-        <ol id="track-list" class="track-list"></ol>
-        <p id="empty-state" class="empty-state" hidden>
-          No tracks yet. Add them to <code>tracks.json</code> to get started.
-        </p>
-      </section>
-    </main>
-
-    <audio id="audio" preload="metadata"></audio>
-    <script src="app.js"></script>
+      <div id="track-hover-tooltip" class="soundtrack-tooltip"></div>
+      <audio id="soundtrack" hidden></audio>
+    </center>
+    <script src="soundtrack-webaudio.js?v=20260606"></script>
+    <script src="index-shared.js?v=20260606"></script>
+    <script src="index-visualizer.js?v=20260606"></script>
+    <script src="index-markers.js?v=20260606"></script>
+    <script src="index-interaction.js?v=20260606"></script>
+    <script src="index-data.js?v=20260606"></script>
+    <script src="index-session.js?v=20260606"></script>
+    <script src="index-metadata.js?v=20260606"></script>
+    <script src="index-state.js?v=20260606"></script>
+    <script src="index-mapper.js?v=20260606"></script>
+    <script src="index.js?v=20260606"></script>
   </body>
 </html>
