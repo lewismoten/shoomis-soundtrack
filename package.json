@@ -1,0 +1,12 @@
+{
+  "name": "shoomis-soundtrack",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "eslint": "^10.12.0",
+    "globals": "^17.3.0"
+  }
+}
