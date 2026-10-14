@@ -27,7 +27,10 @@ Install the linting dependencies and check the JavaScript with:
 ```sh
 npm install
 npm run lint
+npm run format:check
 ```
+
+Use `npm run format` to apply the project's formatting rules.
 
 ## Publish to GitHub Pages
 
