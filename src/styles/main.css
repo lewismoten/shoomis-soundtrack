@@ -45,6 +45,20 @@
     serif;
 }
 
+.soundtrack-player-link {
+  display: inline-block;
+  margin: 5px 0 7px;
+  color: #ffdd99;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.soundtrack-player-link:hover,
+.soundtrack-player-link:focus {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
 .soundtrack-spectrum {
   position: absolute;
   left: 268px;
