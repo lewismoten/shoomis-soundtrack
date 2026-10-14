@@ -1,5 +1,14 @@
-(function () {
-  var pageShared = window.ShoomiIndexPageShared || {};
+import * as pageShared from './music-theory.js';
+import * as pageVisualizer from './canvas-renderer.js';
+import * as pageMetadata from './metadata-panel.js';
+import * as pageState from './playback-state.js';
+import * as pageMapper from './sound-mapper.js';
+import * as pageMarkers from './marker-controls.js';
+import * as pageInteraction from './interactions.js';
+import * as pageData from './timeline-data.js';
+import * as pageSession from './playback-session.js';
+
+export function initializePlayer() {
   var TRACKS = pageShared.TRACKS || {};
   var TRACK_COLORS = pageShared.TRACK_COLORS || {};
   var DRUM_SAMPLE_OPTIONS = pageShared.DRUM_SAMPLE_OPTIONS || [];
@@ -39,14 +48,12 @@
     function () {
       return '(unknown)';
     };
-  var pageVisualizer = window.ShoomiIndexPageVisualizer || {};
   var varyLaneColor =
     pageVisualizer.varyLaneColor ||
     function (color) {
       return color;
     };
   var drawMetaInfoBox = pageVisualizer.drawMetaInfoBox || function () {};
-  var pageMetadata = window.ShoomiIndexPageMetadata || {};
   var getControlChangeLabel =
     pageMetadata.getControlChangeLabel ||
     function () {
@@ -62,12 +69,6 @@
     function () {
       return false;
     };
-  var pageState = window.ShoomiIndexPageState || {};
-  var pageMapper = window.ShoomiIndexPageMapper || {};
-  var pageMarkers = window.ShoomiIndexMarkers || {};
-  var pageInteraction = window.ShoomiIndexInteraction || {};
-  var pageData = window.ShoomiIndexData || {};
-  var pageSession = window.ShoomiIndexSession || {};
   var params = new URLSearchParams(window.location.search);
   var selectedMidi = params.get('midi') || 'midi/rock_a_bye_baby.mid';
   var suggestionProfile = params.get('profile') || 'gm';
@@ -743,11 +744,8 @@
     pageInteraction.attachInteractionHandlers(getInteractionOptions());
   }
 
-  if (window.createDreamSoundtrackController) {
-    loadSelectedMidi(selectedMidi);
-    animateVisualizer();
-    return;
-  }
+  loadSelectedMidi(selectedMidi);
+  animateVisualizer();
 
   function buildVisualization(song) {
     if (pageSession.buildVisualization) {
@@ -1952,4 +1950,4 @@
     }
     return {};
   }
-})();
+}

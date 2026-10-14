@@ -15,10 +15,7 @@ export default [
     }
   },
   {
-    files: ['src/player/index*.js', 'src/player/soundtrack-webaudio.js'],
-    languageOptions: {
-      sourceType: 'script'
-    },
+    files: ['src/player/**/*.js'],
     rules: {
       // The restored browser player retains optional hooks shared by its script files.
       'no-unused-vars': 'off'

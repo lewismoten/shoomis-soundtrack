@@ -29,8 +29,8 @@ Use `npm run dev` for a local development server, or `npm run preview` to inspec
 
 ## Project layout
 
-- `src/main.js` — application entry point and load order for the restored browser player
-- `src/player/` — MIDI parsing, playback, visualization, metadata, and interaction modules
+- `src/main.js` — application entry point
+- `src/player/` — named ES modules for the MIDI engine, playback session, timeline data, sound mapping, rendering, metadata, and interactions
 - `src/styles/` — site styling
 - `public/midi/` — files copied unchanged into the deployed site
 - `docs/` — player reference documentation
