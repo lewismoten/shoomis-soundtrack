@@ -1,3 +1,5 @@
+![shoomis-soundtrack: Browser MIDI player with late-90s feel](docs/images/social-preview.png)
+
 # Shoomis Soundtrack
 
 A small browser MIDI player with a restored late-90s feel, built-in tracks, and an original lightweight soundbank.
